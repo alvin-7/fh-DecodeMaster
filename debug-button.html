@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DecodeMaster - Debug Version</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+	</style>
+</head>
+<body>
+    <h1 style="color: white;">Debug Test</h1>
+    <button id="testBtn" class="btn">Click Me</button>
+    <div id="output" style="color: white; margin-top: 20px;"></div>
+
+    <script>
+        console.log('=== Script Start ===');
+
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
+        });
+
+        const testBtn = document.getElementById('testBtn');
+        const output = document.getElementById('output');
+
+        console.log('testBtn element:', testBtn);
+        console.log('output element:', output);
+
+        if (testBtn) {
+            testBtn.addEventListener('click', function() {
+                console.log('Button clicked!');
+                output.textContent = 'Button works! Time: ' + new Date().toLocaleTimeString();
+                alert('Button clicked successfully!');
+            });
+            console.log('Event listener added successfully');
+        } else {
+            console.error('testBtn not found!');
+        }
+
+        console.log('=== Script End ===');
+    </script>
+</body>
+</html>

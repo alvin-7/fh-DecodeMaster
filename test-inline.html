@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Inline</title>
+    <style>
+        .btn { padding: 10px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <button id="testBtn" class="btn">Test Button</button>
+    <div id="output"></div>
+
+    <script>
+        console.log('Script loaded');
+        const testBtn = document.getElementById('testBtn');
+        const output = document.getElementById('output');
+
+        console.log('testBtn:', testBtn);
+
+        testBtn.addEventListener('click', function() {
+            console.log('Button clicked!');
+            output.textContent = 'Button works!';
+            alert('Button clicked!');
+        });
+
+        console.log('Event listener added');
+    </script>
+</body>
+</html>

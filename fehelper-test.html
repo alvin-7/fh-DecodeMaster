@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FeHelper Test</title>
+	<meta charset="UTF-8">
+	<style>
+		body { padding: 20px; font-family: Arial; }
+		.btn {
+			padding: 10px 20px;
+			background: #667eea;
+			color: white;
+			border: none;
+			cursor: pointer;
+			font-size: 16px;
+		}
+		#output {
+			margin-top: 20px;
+			padding: 10px;
+			background: #f0f0f0;
+		}
+	</style>
+</head>
+<body>
+	<h1>FeHelper 测试</h1>
+	<button id="testBtn" class="btn">点击测试</button>
+	<div id="output">等待点击...</div>
+
+	<script>
+		console.log('1. Script tag executed');
+
+		var testBtn = document.getElementById('testBtn');
+		var output = document.getElementById('output');
+
+		console.log('2. Elements:', testBtn, output);
+
+		if (testBtn) {
+			testBtn.onclick = function() {
+				console.log('3. Button clicked!');
+				output.innerHTML = '按钮被点击了！时间: ' + new Date().toLocaleTimeString();
+				alert('点击成功！');
+			};
+			console.log('4. onclick handler attached');
+		}
+
+		console.log('5. Script completed');
+	</script>
+</body>
+</html>

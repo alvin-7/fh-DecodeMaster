@@ -59,8 +59,10 @@ DecodeMaster 是一个纯前端的编解码工具集，专为开发者设计。�
 ### 方式一：直接打开
 
 1. 下载项目文件
-2. 双击打开 `index.html`
+2. 双击打开 `index.html`（已内联所有资源，可直接使用）
 3. 开始使用
+
+> **注意**：如果需要修改代码，建议使用 `index-standalone.html` + `index.css` + `index.js` 的分离版本进行开发，然后重新生成内联版本。
 
 ### 方式二：本地服务器
 
@@ -89,7 +91,7 @@ npx http-server
    - 点击浏览器工具栏中的 FeHelper 图标
    - 选择 "扩展工具" → "工具箱管理"
    - 点击 "导入自定义工具"
-   - 选择 DecodeMaster 的 `index.html` 文件
+   - 选择 `index.html` 文件
    - 完成导入
 
 3. **使用工具**
@@ -164,12 +166,14 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4
 
 ```
 msgpack-encode/
-├── index.html          # 主页面
-├── index.css           # 样式文件
-├── index.js            # 核心逻辑
-├── README.md           # 项目说明
+├── index.html              # 主页面（内联版本，适用于所有场景）
+├── index-standalone.html   # 独立版本（引用外部文件）
+├── index.css               # 样式文件
+├── index.js                # 核心逻辑
+├── fh-config.js            # FeHelper 配置
+├── README.md               # 项目说明
 ├── test-verification.html  # 自动化测试
-└── debug-test.html     # 调试工具
+└── debug-test.html         # 调试工具
 ```
 
 ## 🎨 界面特性
@@ -179,6 +183,30 @@ msgpack-encode/
 - **现代化 UI** - 渐变色、圆角、阴影效果
 - **图标装饰** - 直观的 emoji 图标
 - **深色模式友好** - 舒适的配色方案
+
+## 🔧 技术说明
+
+### 文件版本说明
+
+项目提供两个版本：
+
+1. **index.html** - 内联版本（推荐）
+   - 适用于：所有场景（直接打开、本地服务器、Web 托管、FeHelper）
+   - 结构：单文件，CSS 和 JS 内联
+   - 优势：无外部依赖，避免沙箱权限问题，无 FOUC
+
+2. **index-standalone.html** - 独立版本
+   - 适用于：代码开发和维护
+   - 结构：HTML + 外部 CSS + 外部 JS
+   - 优势：代码分离，易于修改和调试
+
+**为什么使用内联版本？**
+- FeHelper 在沙箱 iframe 中加载工具，无法访问外部文件
+- 内联版本将所有资源打包到单个 HTML 文件中，完全避免权限和 FOUC 问题
+- 同时也适用于直接打开等其他场景，一个文件通用所有环境
+
+**开发建议：**
+修改代码时使用 `index-standalone.html` + `index.css` + `index.js`，然后手动合并生成新的 `index.html`。
 
 ## 🔒 隐私安全
 
