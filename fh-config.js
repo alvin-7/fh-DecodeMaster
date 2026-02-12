@@ -1,7 +1,7 @@
 {
-    "msgpack-encode": {
-        "name": "MessagePack编解码",
-        "tips": "MessagePack序列化和反序列化工具，支持JSON与MessagePack格式互转",
+    "decode-master": {
+        "name": "DecodeMaster",
+        "tips": "开发者编解码工具箱 - 支持 MessagePack 编解码、JWT Token 解析等多种功能",
         "icon": "※",
         "noPage": false,
         "contentScriptJs": false,
