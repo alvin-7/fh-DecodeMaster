@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Debug Test</title>
+</head>
+<body>
+    <h1>Debug Test</h1>
+    <pre id="output"></pre>
+
+    <script src="index.js"></script>
+    <script>
+        const output = document.getElementById('output');
+        const base64Input = 'g6tTZXJ2aWNlVHlwZadTZXJ2aWNlpE5hbWW2T25UaW1lclRpY2tCeVpob25na29uZ6RBcmdzkrQxNzE5MTk5NDY0MTI0NjAxNTk0OM8AjxlJgBuAAg==';
+
+        try {
+            output.textContent += '原始 Base64:\n' + base64Input + '\n\n';
+
+            // 测试 base64 解码
+            const bytes = base64ToBytes(base64Input);
+            output.textContent += '解码后的字节数组长度: ' + bytes.length + '\n';
+            output.textContent += '前20个字节: ' + bytes.slice(0, 20).join(', ') + '\n\n';
+
+            // 测试 MessagePack 解码
+            const decoded = codec.decode(bytes);
+            output.textContent += '解码成功！\n';
+            output.textContent += JSON.stringify(decoded, null, 2);
+
+        } catch (error) {
+            output.textContent += '\n错误: ' + error.message + '\n';
+            output.textContent += '错误堆栈:\n' + error.stack;
+        }
+    </script>
+</body>
+</html>

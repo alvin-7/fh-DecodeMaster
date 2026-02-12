@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DecodeMaster - 开发者编解码工具</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<h1>DecodeMaster</h1>
+			<p class="subtitle">开发者编解码工具箱</p>
+		</div>
+
+		<!-- 标签页导航 -->
+		<div class="tabs">
+			<button class="tab-btn active" data-tab="msgpack">MessagePack</button>
+			<button class="tab-btn" data-tab="jwt">JWT 解析</button>
+		</div>
+
+		<!-- MessagePack 功能区 -->
+		<div class="tab-content active" id="msgpack-tab">
+			<div class="toolbar">
+				<button id="encodeBtn" class="btn btn-primary">
+					<span class="btn-icon">🔒</span> JSON → MessagePack
+				</button>
+				<button id="decodeBtn" class="btn btn-primary">
+					<span class="btn-icon">🔓</span> MessagePack → JSON
+				</button>
+				<button id="clearBtn" class="btn btn-secondary">
+					<span class="btn-icon">🗑️</span> 清空
+				</button>
+				<button id="copyBtn" class="btn btn-secondary">
+					<span class="btn-icon">📋</span> 复制结果
+				</button>
+			</div>
+
+			<div class="content">
+				<div class="panel">
+					<div class="panel-header">
+						<span class="panel-icon">📝</span> 输入
+					</div>
+					<textarea id="inputArea" placeholder='输入 JSON 数据或 MessagePack 数据&#10;&#10;示例 JSON:&#10;{"name": "张三", "age": 25, "active": true}&#10;&#10;或输入十六进制/Base64 格式的 MessagePack 数据'></textarea>
+				</div>
+
+				<div class="panel">
+					<div class="panel-header">
+						<span class="panel-icon">✨</span> 输出
+					</div>
+					<textarea id="outputArea" readonly placeholder="结果将显示在这里"></textarea>
+				</div>
+			</div>
+
+			<div class="info-panel">
+				<div class="info-header">💡 使用说明</div>
+				<div class="info-content">
+					<div class="info-item">
+						<strong>编码：</strong>输入 JSON 数据，点击 "JSON → MessagePack" 转换为十六进制和 Base64 格式
+					</div>
+					<div class="info-item">
+						<strong>解码：</strong>输入 MessagePack 数据（十六进制或 Base64），自动识别格式并转换为 JSON
+					</div>
+					<div class="info-item">
+						<strong>支持：</strong>对象、数组、字符串、数字、布尔值、null、64位整数等所有 MessagePack 类型
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- JWT 功能区 -->
+		<div class="tab-content" id="jwt-tab">
+			<div class="toolbar">
+				<button id="jwtDecodeBtn" class="btn btn-primary">
+					<span class="btn-icon">🔍</span> 解析 JWT
+				</button>
+				<button id="jwtClearBtn" class="btn btn-secondary">
+					<span class="btn-icon">🗑️</span> 清空
+				</button>
+				<button id="jwtCopyBtn" class="btn btn-secondary">
+					<span class="btn-icon">📋</span> 复制结果
+				</button>
+			</div>
+
+			<div class="content">
+				<div class="panel">
+					<div class="panel-header">
+						<span class="panel-icon">🎫</span> JWT Token
+					</div>
+					<textarea id="jwtInputArea" placeholder='输入 JWT Token&#10;&#10;示例:&#10;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'></textarea>
+				</div>
+
+				<div class="panel">
+					<div class="panel-header">
+						<span class="panel-icon">📄</span> 解析结果
+					</div>
+					<textarea id="jwtOutputArea" readonly placeholder="JWT 解析结果将显示在这里"></textarea>
+				</div>
+			</div>
+
+			<div class="info-panel">
+				<div class="info-header">💡 使用说明</div>
+				<div class="info-content">
+					<div class="info-item">
+						<strong>解析：</strong>输入完整的 JWT Token，点击 "解析 JWT" 查看 Header 和 Payload 内容
+					</div>
+					<div class="info-item">
+						<strong>时间信息：</strong>自动显示过期时间（exp）、签发时间（iat）、生效时间（nbf）等
+					</div>
+					<div class="info-item">
+						<strong>注意：</strong>此工具仅解析 JWT 内容，不验证签名有效性
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<link rel="stylesheet" type="text/css" href="index.css" /><script src="index.js"></script></body>
+</html>

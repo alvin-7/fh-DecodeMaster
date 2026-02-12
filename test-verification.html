@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MessagePack Verification Tests</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .pass {
+            background: #d4edda;
+            color: #155724;
+        }
+        .fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>MessagePack Plugin Verification Tests</h1>
+    <div id="results"></div>
+
+    <script src="index.js"></script>
+    <script>
+        const results = document.getElementById('results');
+
+        function addResult(testName, passed, message) {
+            const div = document.createElement('div');
+            div.className = `test-result ${passed ? 'pass' : 'fail'}`;
+            div.textContent = `${passed ? '✓' : '✗'} ${testName}: ${message}`;
+            results.appendChild(div);
+        }
+
+        // Test 1: Basic encoding
+        try {
+            const testObj = {"name": "test", "age": 25};
+            const encoded = codec.encode(testObj);
+            const hex = bytesToHex(encoded);
+            addResult('Basic Encoding', hex.length > 0, `Encoded to ${hex.length} chars`);
+        } catch (e) {
+            addResult('Basic Encoding', false, e.message);
+        }
+
+        // Test 2: Basic decoding
+        try {
+            const testObj = {"name": "test", "age": 25};
+            const encoded = codec.encode(testObj);
+            const hex = bytesToHex(encoded);
+            const bytes = hexToBytes(hex);
+            const decoded = codec.decode(bytes);
+            const match = JSON.stringify(decoded) === JSON.stringify(testObj);
+            addResult('Basic Decoding', match, 'Round-trip successful');
+        } catch (e) {
+            addResult('Basic Decoding', false, e.message);
+        }
+
+        // Test 3: Unicode support
+        try {
+            const testObj = {"name": "测试", "emoji": "😀"};
+            const encoded = codec.encode(testObj);
+            const decoded = codec.decode(encoded);
+            const match = decoded.name === "测试" && decoded.emoji === "😀";
+            addResult('Unicode Support', match, 'Chinese and emoji preserved');
+        } catch (e) {
+            addResult('Unicode Support', false, e.message);
+        }
+
+        // Test 4: Nested structures
+        try {
+            const testObj = {
+                "user": {
+                    "name": "John",
+                    "tags": ["admin", "user"]
+                }
+            };
+            const encoded = codec.encode(testObj);
+            const decoded = codec.decode(encoded);
+            const match = decoded.user.name === "John" && decoded.user.tags[0] === "admin";
+            addResult('Nested Structures', match, 'Objects and arrays work');
+        } catch (e) {
+            addResult('Nested Structures', false, e.message);
+        }
+
+        // Test 5: All data types
+        try {
+            const testObj = {
+                "null": null,
+                "bool_true": true,
+                "bool_false": false,
+                "number": 42,
+                "negative": -10,
+                "float": 3.14,
+                "string": "hello"
+            };
+            const encoded = codec.encode(testObj);
+            const decoded = codec.decode(encoded);
+            const match = decoded.null === null &&
+                         decoded.bool_true === true &&
+                         decoded.number === 42 &&
+                         decoded.float === 3.14;
+            addResult('All Data Types', match, 'All types preserved');
+        } catch (e) {
+            addResult('All Data Types', false, e.message);
+        }
+
+        // Test 6: Utility functions
+        try {
+            const bytes = [0x83, 0xa4, 0x6e, 0x61, 0x6d, 0x65];
+            const hex = bytesToHex(bytes);
+            const back = hexToBytes(hex);
+            const match = bytes.every((b, i) => b === back[i]);
+            addResult('Utility Functions', match, 'bytesToHex/hexToBytes work');
+        } catch (e) {
+            addResult('Utility Functions', false, e.message);
+        }
+
+        // Test 7: DOM elements exist
+        try {
+            const elements = ['inputArea', 'outputArea', 'encodeBtn', 'decodeBtn', 'clearBtn', 'copyBtn'];
+            const allExist = elements.every(id => document.getElementById(id) !== null);
+            addResult('DOM Elements', allExist, 'All UI elements present');
+        } catch (e) {
+            addResult('DOM Elements', false, e.message);
+        }
+
+        // Summary
+        const allTests = document.querySelectorAll('.test-result');
+        const passed = document.querySelectorAll('.pass').length;
+        const total = allTests.length;
+
+        const summary = document.createElement('h2');
+        summary.textContent = `\nSummary: ${passed}/${total} tests passed`;
+        summary.style.marginTop = '20px';
+        results.appendChild(summary);
+    </script>
+</body>
+</html>
